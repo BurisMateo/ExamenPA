@@ -1,0 +1,4 @@
+
+npx create-react-app examen-pa
+
+npm install bootstrap

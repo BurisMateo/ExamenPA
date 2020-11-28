@@ -1,23 +1,24 @@
-import logo from './logo.svg';
-import './App.css';
-
+import React, { useEffect, useState } from "react";
+import SearchBar from "./components/SearchBar";
+import Catalogo from "./components/Catalogo";
+import buscarProducto from "./Api";
 function App() {
+  const [products, setProducts] = useState([]);
+  const [query, setQuery] = useState([]);
+
+  async function obtenerProductos(query) {
+    let response = await buscarProducto(query);
+    setProducts(response);
+  }
+
+  useEffect(() => {
+    obtenerProductos(query);
+  }, [query]);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Mateo El Mas Capito
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <SearchBar setTitle={setQuery} />
+      <Catalogo productos={products} />
     </div>
   );
 }
